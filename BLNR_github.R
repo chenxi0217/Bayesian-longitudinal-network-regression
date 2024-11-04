@@ -135,12 +135,10 @@ model<-function( A, X, mcmc_samples, Q){
   
   # initialization
   alpha <- array(NA, dim = c(mcmc_samples, conn_block1,pd))
-  #alpha[1,,]<-array(rnorm(conn_block1*3),dim=c(conn_block1,3))
-  alpha[1,,]<-alpha_sim
+  alpha[1,,]<-array(rnorm(conn_block1*3),dim=c(conn_block1,3))
   
   delta<-array(NA, dim = c(mcmc_samples, conn_block1,pd))
-  #delta[1,,]<-array(rep(1,conn_block1*3),dim=c(conn_block1,3))
-  delta[1,,]<-delta_sim
+  delta[1,,]<-array(rep(1,conn_block1*3),dim=c(conn_block1,3))
   
   beta <- array(NA, dim = c(mcmc_samples, conn_block1,pd))
   beta[1,,]<-alpha[1,,]*delta[1,,]
@@ -174,11 +172,10 @@ model<-function( A, X, mcmc_samples, Q){
   paic[1,]<- rdirichlet(1, dir_vec)
   
   c_latent <- array(0, dim = c(mcmc_samples, V, Q))
-  # for(g in 1:V){
-  #     k=sample(1:Q,1)
-  #     c_latent[1,g,k]<-1
-  #   }
-  c_latent[1,,]<-c_latent_sim
+   for(g in 1:V){
+       k=sample(1:Q,1)
+       c_latent[1,g,k]<-1
+     }
   
   mik_qr_ini <- array(0, dim=c(n, num_visit, conn_block1))
   for (i in 1:n){
